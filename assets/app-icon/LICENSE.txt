@@ -1,12 +1,11 @@
-PdfCraft app icon (pdfcraft.svg, pdfcraft-small.svg and every file derived from them in this
-directory: pdfcraft-1024.png, pdfcraft.icns, pdfcraft.ico, hicolor/).
-
-Original artwork made for this project by the project owner, drawn in ArtCraft and vectorised for
-PdfCraft (no third-party material). Licensed like the rest of PdfCraft, under either of
+Atelier Seal app icon (pdfcraft.svg, pdfcraft-small.svg and every file derived from them in this
+directory: pdfcraft-1024.png, pdfcraft.icns, pdfcraft.ico, hicolor/). Original artwork made for
+Atelier Seal: the hidden sun behind a wax seal, drawn as SVG. No third-party material. Licensed
+like the rest of the code, under either of
 
   * Apache License, Version 2.0 (https://www.apache.org/licenses/LICENSE-2.0)
   * MIT license (https://opensource.org/licenses/MIT)
 
-at your option.
+at your option. The Atelier and Aetherion names are not covered by that license.
 
 Regenerate the derived files with packaging/icons.sh.

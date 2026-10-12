@@ -121,10 +121,15 @@ pub fn parse_entries(text: &str, forms: usize) -> (Vec<Entry>, Vec<String>) {
         }
         let line_no = index.saturating_add(1);
         match parse_line(line, forms) {
-            Ok(entry) if !seen.insert((entry.context.clone(), entry.source.clone())) => {
-                errors.push(format!("line {line_no}: duplicate key {:?} / {:?}", entry.context, entry.source));
+            // The brand layer: rows naming the upstream community are retired, the rest name this
+            // product (see `identity`). Retired rows are dropped silently; they are not errors.
+            Ok(entry) if crate::identity::retired(&entry.source) || crate::identity::retired(&entry.translation) => {}
+            Ok(Entry { context, source, translation: _ }) if !seen.insert((context.clone(), crate::identity::rewrite(&source))) => {
+                errors.push(format!("line {line_no}: duplicate key {context:?} / {source:?}"));
             }
-            Ok(entry) => entries.push(entry),
+            Ok(Entry { context, source, translation }) => {
+                entries.push(Entry { context, source: crate::identity::rewrite(&source), translation: crate::identity::rewrite(&translation) })
+            }
             Err(error) => errors.push(format!("line {line_no}: {error}")),
         }
     }
@@ -153,6 +158,14 @@ impl Catalog {
             }
         }
         (c, errors)
+    }
+
+    /// Adds (or replaces) context-free strings: the brand layer's own strings (`identity::strings`).
+    pub fn with_plain(mut self, entries: Vec<(&str, &str)>) -> Catalog {
+        for (source, translation) in entries {
+            self.plain.insert(source.to_string(), translation.to_string());
+        }
+        self
     }
 
     /// Rewrite every translation (each plural form on its own), e.g. into display order for a

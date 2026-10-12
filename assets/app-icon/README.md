@@ -1,48 +1,30 @@
-# PdfCraft app icon
+# Atelier Seal app icon
 
-<img src="pdfcraft-small.svg" alt="PdfCraft app icon: an engraved lion's head on green" width="128">
+<img src="pdfcraft-small.svg" alt="Atelier Seal app icon: the hidden sun behind an ochre wax seal" width="128">
 
-**Creature:** a lion, in a frontal head-and-shoulders portrait, mane running off the bottom of the tile.
+**The hidden sun behind a wax seal**: an ivory disc rising behind an ochre wax seal, scalloped at the
+edge and stamped with the sun mark, on a volcanic black field. Three colours, from the Nation's
+palette: volcanic black `#141210`, ivory `#efe6d2`, ochre `#d9a441`.
 
-**Style:** an engraving (woodcut-weight line work) portrait in the Crafting Apps "owl template" framing:
-a full-bleed colour field, no frame or roundel, the animal looking at the viewer and filling the tile.
+**Tile:** `viewBox="0 0 512 512"`, a rounded square with `rx=112`, as all the Atelier icons. Windows
+and Linux icons use the full tile. macOS icons put it on Apple's grid (an 824 px body centred on a
+transparent 1024 px canvas).
 
-**Palette:** exactly three colours.
-
-| Colour | Hex | Used for |
-|---|---|---|
-| Ink | `#0b0b0c` | line work and the figure's contour |
-| Paper | `#efe9dc` | the figure (the lion's silhouette) |
-| PdfCraft green (app colour) | `#12a58a` | the full-bleed field |
-
-**Tile:** `viewBox="0 0 512 512"`, a rounded square with `rx=112` that clips everything. Windows and Linux
-icons use the full-bleed tile. macOS icons put it on Apple's grid (an 824 px body centred on a transparent
-1024 px canvas).
-
-**Provenance:** the project owner's original drawing, made in ArtCraft (2880 px, keyed to the palette), then
-vectorised with craftrules `assets/logo-options/_tools/vectorize_tile.py` (potrace; no filtering or
-warping). The source drawing is kept in craftrules at `assets/app-icons/pdfcraft/source.png`, not here.
-Licence: [LICENSE.txt](LICENSE.txt) (`MIT OR Apache-2.0`, like the repo).
+**Provenance:** drawn for Atelier Seal by hand as SVG (2026). It replaces PdfCraft's lion icon, which
+stays in PdfCraft's own repository. Licence: [LICENSE.txt](LICENSE.txt) (`MIT OR Apache-2.0`). The
+file names keep their upstream `pdfcraft` names so packaging stays untouched.
 
 ## Files
 
 | File | What it is |
 |---|---|
-| `pdfcraft.svg` | the master vector (traced at 2048 px); every PNG, `.ico` and `.icns` is rendered from it |
-| `pdfcraft-small.svg` | a lighter vector (traced at 1024 px) for places where size matters, such as this README |
+| `pdfcraft.svg` | the master vector; every PNG, `.ico` and `.icns` is rendered from it |
+| `pdfcraft-small.svg` | the same artwork (upstream kept a lighter trace here) |
 | `pdfcraft-1024.png` | 1024 px on Apple's grid; also the runtime Dock icon on macOS |
 | `pdfcraft.icns` | macOS icon (16–1024 px) |
-| `pdfcraft.ico` | Windows icon (16–256 px), embedded in `pdfcraft.exe` by `apps/pdfcraft/build.rs` |
-| `hicolor/<n>x<n>/apps/ai.storyteller.pdfcraft.png` | Linux hicolor theme, 16–512 px; the 256 px one is the runtime icon on Windows and Linux |
-| `hicolor/scalable/apps/ai.storyteller.pdfcraft.svg` | Linux scalable icon (copy of the master) |
+| `pdfcraft.ico` | Windows icon, 16–256 px |
+| `hicolor/<size>/apps/ai.storyteller.pdfcraft.png` | Linux icon theme, 16–512 px; 256 px is also the runtime window icon on Windows and Linux |
+| `hicolor/scalable/apps/ai.storyteller.pdfcraft.svg` | Linux scalable icon |
 
-Where it shows: `apps/pdfcraft/src/main.rs` sets the window icon (Dock, taskbar, Alt-Tab, launcher) and the
-Wayland app id `ai.storyteller.pdfcraft`; `packaging/linux/ai.storyteller.pdfcraft.desktop` names the
-hicolor icon.
-
-## Regenerate
-
-```sh
-packaging/icons.sh        # needs resvg and python3; iconutil (macOS) for the .icns
-cargo xtask assets        # then update the sha256 values in ATTRIBUTION.toml and run with --write
-```
+The committed renders were made from the same SVG with cairosvg and Pillow;
+`packaging/icons.sh` regenerates them (needs resvg; iconutil on macOS for the `.icns`).

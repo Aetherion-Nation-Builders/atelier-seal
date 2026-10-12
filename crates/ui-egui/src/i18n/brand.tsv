@@ -1,0 +1,101 @@
+# Atelier brand strings: the UI strings that are ours, not PdfCraft's, with their translations.
+# Format: language code <TAB> English source <TAB> translation. The `product` line is the rename
+# applied to every upstream catalog entry as it loads (see identity.rs and docs/brand.md).
+# Languages without a line for a string show the English.
+product	PdfCraft	Atelier Seal
+
+en	Join the Nation	Join the Nation
+en	Atelier website	Atelier website
+en	Atelier and the Nation	Atelier and the Nation
+en	Get help, share feedback and follow Atelier's progress with the Nation.	Get help, share feedback and follow Atelier's progress with the Nation.
+en	Nation	Nation
+
+ar	Join the Nation	انضم إلى Nation
+ar	Atelier website	موقع Atelier
+ar	Atelier and the Nation	Atelier و Nation
+ar	Get help, share feedback and follow Atelier's progress with the Nation.	احصل على المساعدة وشارك ملاحظاتك وتابع تقدّم Atelier مع Nation.
+ar	Nation	Nation
+
+bg	Join the Nation	Присъединете се към Nation
+bg	Atelier website	Уебсайт на Atelier
+bg	Atelier and the Nation	Atelier и Nation
+bg	Get help, share feedback and follow Atelier's progress with the Nation.	Получете помощ, споделете отзиви и следете напредъка на Atelier заедно с Nation.
+bg	Nation	Nation
+
+cs	Join the Nation	Připojte se k Nation
+cs	Atelier website	Web Atelier
+cs	Atelier and the Nation	Atelier a Nation
+cs	Get help, share feedback and follow Atelier's progress with the Nation.	Získejte pomoc, sdílejte zpětnou vazbu a sledujte vývoj Atelier spolu s Nation.
+cs	Nation	Nation
+
+de	Join the Nation	Der Nation beitreten
+de	Atelier website	Atelier-Website
+de	Atelier and the Nation	Atelier und die Nation
+de	Get help, share feedback and follow Atelier's progress with the Nation.	Hilfe holen, Feedback geben und die Fortschritte von Atelier mit der Nation verfolgen.
+de	Nation	Nation
+
+es	Join the Nation	Únete a la Nation
+es	Atelier website	Sitio web de Atelier
+es	Atelier and the Nation	Atelier y la Nation
+es	Get help, share feedback and follow Atelier's progress with the Nation.	Obtén ayuda, comparte tus comentarios y sigue el progreso de Atelier con la Nation.
+es	Nation	Nation
+
+fr	Join the Nation	Rejoindre la Nation
+fr	Atelier website	Site web d'Atelier
+fr	Atelier and the Nation	Atelier et la Nation
+fr	Get help, share feedback and follow Atelier's progress with the Nation.	Obtenez de l'aide, partagez vos retours et suivez les progrès d'Atelier avec la Nation.
+fr	Nation	Nation
+
+hu	Join the Nation	Csatlakozz a Nationhöz
+hu	Atelier website	Az Atelier webhelye
+hu	Atelier and the Nation	Az Atelier és a Nation
+hu	Get help, share feedback and follow Atelier's progress with the Nation.	Kérj segítséget, oszd meg a véleményed, és kövesd az Atelier fejlődését a Nationnel.
+hu	Nation	Nation
+
+it	Join the Nation	Unisciti alla Nation
+it	Atelier website	Sito web di Atelier
+it	Atelier and the Nation	Atelier e la Nation
+it	Get help, share feedback and follow Atelier's progress with the Nation.	Ricevi aiuto, condividi i tuoi commenti e segui i progressi di Atelier con la Nation.
+it	Nation	Nation
+
+ja	Join the Nation	Nation に参加
+ja	Atelier website	Atelier ウェブサイト
+ja	Atelier and the Nation	Atelier と Nation
+ja	Get help, share feedback and follow Atelier's progress with the Nation.	Nation とともに、ヘルプやフィードバックの共有、Atelier の進捗の確認ができます。
+ja	Nation	Nation
+
+pt-br	Join the Nation	Junte-se à Nation
+pt-br	Atelier website	Site do Atelier
+pt-br	Atelier and the Nation	O Atelier e a Nation
+pt-br	Get help, share feedback and follow Atelier's progress with the Nation.	Obtenha ajuda, envie feedback e acompanhe o progresso do Atelier com a Nation.
+pt-br	Nation	Nation
+
+ru	Join the Nation	Присоединиться к Nation
+ru	Atelier website	Сайт Atelier
+ru	Atelier and the Nation	Atelier и Nation
+ru	Get help, share feedback and follow Atelier's progress with the Nation.	Получайте помощь, делитесь отзывами и следите за развитием Atelier вместе с Nation.
+ru	Nation	Nation
+
+te	Join the Nation	Nationలో చేరండి
+te	Atelier website	Atelier వెబ్‌సైట్
+te	Atelier and the Nation	Atelier మరియు Nation
+te	Get help, share feedback and follow Atelier's progress with the Nation.	సహాయం పొందండి, అభిప్రాయాలు పంచుకోండి, Nationతో కలిసి Atelier పురోగతిని అనుసరించండి.
+te	Nation	Nation
+
+uk	Join the Nation	Приєднатися до Nation
+uk	Atelier website	Вебсайт Atelier
+uk	Atelier and the Nation	Atelier і Nation
+uk	Get help, share feedback and follow Atelier's progress with the Nation.	Отримуйте допомогу, діліться відгуками та стежте за розвитком Atelier разом із Nation.
+uk	Nation	Nation
+
+zh-hans	Join the Nation	加入 Nation
+zh-hans	Atelier website	Atelier 网站
+zh-hans	Atelier and the Nation	Atelier 与 Nation
+zh-hans	Get help, share feedback and follow Atelier's progress with the Nation.	获取帮助、分享反馈，并与 Nation 一起关注 Atelier 的进展。
+zh-hans	Nation	Nation
+
+zh-hant	Join the Nation	加入 Nation
+zh-hant	Atelier website	Atelier 網站
+zh-hant	Atelier and the Nation	Atelier 與 Nation
+zh-hant	Get help, share feedback and follow Atelier's progress with the Nation.	取得協助、分享意見回饋，並與 Nation 一起關注 Atelier 的進展。
+zh-hant	Nation	Nation
