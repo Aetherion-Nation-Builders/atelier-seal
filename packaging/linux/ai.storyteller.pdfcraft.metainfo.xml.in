@@ -5,24 +5,24 @@
   <id>ai.storyteller.pdfcraft</id>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>MIT OR Apache-2.0</project_license>
-  <name>PdfCraft</name>
+  <name>Atelier Seal</name>
   <summary>Read, organize, combine, split and secure PDFs</summary>
   <developer id="ai.storyteller">
-    <name>Learning Machines LLC</name>
+    <name>Aetherion Nation</name>
   </developer>
   <description>
     <p>
-      PdfCraft is an open-source PDF workbench. Read, comment on, fill in and sign PDFs;
+      Atelier Seal is the Nation's open-source PDF workbench, built on PdfCraft. Read, comment on, fill in and sign PDFs;
       organize, combine and split pages; edit, redact, protect and export documents.
     </p>
   </description>
   <launchable type="desktop-id">ai.storyteller.pdfcraft.desktop</launchable>
   <icon type="stock">ai.storyteller.pdfcraft</icon>
   <!-- Only url types known to appstream 0.15 (Ubuntu 22.04, where CI validates): no vcs-browser. -->
-  <url type="homepage">https://getartcraft.com/apps/pdfcraft</url>
-  <url type="bugtracker">https://github.com/storytold/pdfcraft/issues</url>
-  <url type="help">https://github.com/storytold/pdfcraft</url>
-  <url type="contact">https://discord.gg/artcraft</url>
+  <url type="homepage">https://www.aetherionnnation.com/atelier/seal</url>
+  <url type="bugtracker">https://github.com/Aetherion-Nation-Builders/atelier-seal/issues</url>
+  <url type="help">https://github.com/Aetherion-Nation-Builders/atelier-seal</url>
+  <url type="contact">https://www.aetherionnnation.com</url>
   <categories>
     <category>Office</category>
     <category>Viewer</category>
