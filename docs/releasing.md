@@ -1,5 +1,14 @@
 # Releasing PdfCraft
 
+> **Atelier Seal, for now:** a release builds the **macOS DMG only**, on GitHub's standard
+> macOS runner, **unsigned** (ad-hoc signed, not notarized) until the Apple signing secrets below
+> are added. The other platforms build again when listed in the repository variable
+> `ATELIER_RELEASE_PLATFORMS` (for example `windows linux freebsd web`). The draft is named
+> `Atelier Seal v<version>`; publish it to make it the release Atelier Gate installs. To cut one
+> without the `release` branch: **Actions › Release › Run workflow** on `main`. An unsigned app
+> downloaded in a browser opens the first time through **System Settings › Privacy & Security ›
+> Open Anyway** (macOS 15). The rest of this page is upstream's guide.
+
 Every push to the `release` branch runs `.github/workflows/release.yml`. It builds installers for
 macOS, Windows, Linux, FreeBSD and the web, signs the ones it has certificates for, and creates or
 updates a **draft** GitHub Release named `PdfCraft v<version>`. Nobody sees a draft until a
@@ -79,7 +88,8 @@ and an `ATTRIBUTION.txt`, straight into the package, so packaging needs the netw
 ### macOS
 
 `packaging/macos/package.sh` builds both architectures, joins them with `lipo`, and assembles
-`PdfCraft.app` from `Info.plist.in` (bundle id `ai.storyteller.pdfcraft`, macOS 11+, PDF declared
+`Atelier Seal.app` (its executable and icon file inside keep the machine name `PdfCraft`)
+from `Info.plist.in` (bundle id `ai.storyteller.pdfcraft`, macOS 11+, PDF declared
 as a document type with rank Alternate, so PdfCraft is offered under Open With without taking over
 from Preview). Files opened from Finder arrive as Apple events, which
 `apps/pdfcraft/src/apple_events.rs` receives.
@@ -91,7 +101,7 @@ from Preview). Files opened from Finder arrive as Apple events, which
   stapled, and the result is checked with `codesign --verify`, `stapler validate` and `spctl`. The
   app ships on a drag-to-Applications DMG, which is signed and notarized too.
   Its Finder window (background, icon size and positions) comes from
-  [`packaging/macos/dmg/`](../packaging/macos/dmg/README.md), and its volume is named `PdfCraft`
+  [`packaging/macos/dmg/`](../packaging/macos/dmg/README.md), and its volume is named `Atelier Seal`
   without the version, which the window's background needs; the DMG file name keeps the version.
 - **CLI:** `pdfcraft-cli` is signed and notarized as a zip. A bare executable can't hold a stapled
   ticket, so Gatekeeper looks it up online the first time a downloaded copy runs.

@@ -3085,26 +3085,26 @@ sha256 = "21808625578fe8d8cd10cb684be546dca077b27cd03a53a2f1ec11dc743c924c"
 
 [[asset]]
 path = "packaging/macos/dmg/background.svg"
-title = "PdfCraft macOS DMG window background"
-author = "@XusBadia"
-source = "Original work for this repository, derived from the PdfCraft app icon (assets/app-icon/pdfcraft.svg, referenced via an SVG image element, not copied)"
+title = "Atelier Seal macOS DMG window background"
+author = "Aetherion Nation"
+source = "Contributor-original, written by packaging/macos/dmg/atelier-background.py in Atelier's colours; the PdfCraft app icon (assets/app-icon/pdfcraft.svg) is referenced via an SVG image element, not copied; its text (Archivo, Geist Mono, both SIL OFL 1.1) is outlined to paths, and no font file is in this repository"
 licence = "MIT OR Apache-2.0"
 licence_file = "assets/app-icon/LICENSE.txt"
 kind = "image"
 usage = "Finder window of the macOS DMG; rendered to background.tiff by packaging/macos/dmg/generate.py"
-sha256 = "e8b9ea9d5e64b7b741c977543c1693825e77d5c4c579eeb674bf5dcd3764cd8a"
+sha256 = "6970673acded8252d7cd8b601b79cb116453a57db238c8e81b270476f700f931"
 
 
 [[asset]]
 path = "packaging/macos/dmg/background.tiff"
-title = "PdfCraft macOS DMG window background (rendered)"
-author = "@XusBadia"
+title = "Atelier Seal macOS DMG window background (rendered)"
+author = "Aetherion Nation"
 source = "Rendered from packaging/macos/dmg/background.svg by packaging/macos/dmg/generate.py"
 licence = "MIT OR Apache-2.0"
 licence_file = "assets/app-icon/LICENSE.txt"
 kind = "image"
 usage = "1x + 2x HiDPI 16-colour palette TIFF copied into the macOS DMG by packaging/macos/package.sh; includes the app icon and the free LittleCMS built-in sRGB profile"
-sha256 = "f46881724a6621f3686a612a79dbdce4f7dbe9e2025610e44c9a094341334c2c"
+sha256 = "1057cf8471092861f90cc19d313fbd4de4dea99abdaddda4dc5b691971b9cb74"
 
 [[fetched]]
 file = "text-detection.rten"
