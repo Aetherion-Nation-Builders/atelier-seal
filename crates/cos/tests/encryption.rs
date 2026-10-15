@@ -103,6 +103,36 @@ fn empty_user_password_opens_but_reports_restrictions() {
 }
 
 #[test]
+fn the_permissions_password_unlocks_an_open_document() {
+    for alg in ALL {
+        // Only a permissions password: opens without asking, restricted (#995).
+        let mut doc = Document::open(Arc::new(protect(alg, "", "perms", 0b0100))).unwrap();
+        // Read something before unlocking: it must stay readable afterwards.
+        assert_eq!(content(&doc), SECRET, "{alg:?}");
+        assert_eq!(doc.unlock("").unwrap_err(), CosError::WrongPassword, "{alg:?}");
+        assert_eq!(doc.unlock("nope").unwrap_err(), CosError::WrongPassword, "{alg:?}");
+        assert!(!doc.permissions().unwrap().modify(), "{alg:?}: still restricted");
+        doc.unlock("perms").unwrap();
+        assert_eq!(doc.security().unwrap().auth(), Auth::Owner, "{alg:?}");
+        assert!(doc.permissions().unwrap().modify(), "{alg:?}");
+        assert_eq!(content(&doc), SECRET, "{alg:?}");
+        assert_eq!(title(&doc).as_deref(), Some("Quarterly numbers"), "{alg:?}");
+        // Unlocked, security can be removed.
+        doc.remove_encryption();
+        let plain = write_full(&doc, &SaveOptions::default()).unwrap();
+        assert!(Document::open(Arc::new(plain)).unwrap().security().is_none(), "{alg:?}");
+    }
+    // Opened with a separate open password: that password doesn't unlock.
+    let mut doc = Document::open_with_password(Arc::new(protect(Algorithm::Aes256, "open", "perms", 0b0100)), Some("open")).unwrap();
+    assert_eq!(doc.unlock("open").unwrap_err(), CosError::WrongPassword);
+    doc.unlock("perms").unwrap();
+    assert!(doc.permissions().unwrap().modify());
+    // Nothing to unlock: unencrypted, or already the owner.
+    Document::open(Arc::new(fixture())).unwrap().unlock("anything").unwrap();
+    doc.unlock("anything").unwrap();
+}
+
+#[test]
 fn incremental_edits_of_encrypted_documents_stay_encrypted() {
     for alg in ALL {
         let original = protect(alg, "user", "owner", -1);
@@ -172,24 +202,23 @@ fn unencrypted_metadata_is_left_readable() {
     let _ = ObjRef::new(1, 0);
 }
 
-/// Second independent oracle when qpdf is installed: it must accept both passwords, identify
-/// the owner password, and find no structural errors.
+/// The second independent oracle: qpdf must accept both passwords, identify the owner password,
+/// and find no structural errors. For R2-R4 this is the *only* check of owner-password
+/// authentication (Algorithm 7) that does not go through our own code, so it is the one place a
+/// silent skip would cost the most -- see `pdfcraft-oracle`, which makes absence loud.
 #[test]
 fn qpdf_agrees() {
-    if std::process::Command::new("qpdf").arg("--version").output().is_err() {
-        eprintln!("qpdf not installed; skipping");
-        return;
-    }
+    let qpdf = pdfcraft_oracle::or_skip!(pdfcraft_oracle::qpdf());
     let dir = std::env::temp_dir().join(format!("pdfcraft-enc-{}", std::process::id()));
     std::fs::create_dir_all(&dir).unwrap();
     for alg in ALL {
         let path = dir.join(format!("{alg:?}.pdf"));
         std::fs::write(&path, protect(alg, "user", "owner", -1)).unwrap();
         for (pw, expect) in [("user", "user password"), ("owner", "owner password")] {
-            let out = std::process::Command::new("qpdf").arg(format!("--password={pw}")).arg("--show-encryption").arg(&path).output().unwrap();
+            let out = qpdf.command().arg(format!("--password={pw}")).arg("--show-encryption").arg(&path).output().unwrap();
             let text = String::from_utf8_lossy(&out.stdout);
             assert!(text.contains(&format!("Supplied password is {expect}")), "{alg:?}/{pw}: {text}");
-            let check = std::process::Command::new("qpdf").arg(format!("--password={pw}")).arg("--check").arg(&path).output().unwrap();
+            let check = qpdf.command().arg(format!("--password={pw}")).arg("--check").arg(&path).output().unwrap();
             assert!(check.status.success(), "{alg:?}/{pw}: {}", String::from_utf8_lossy(&check.stdout));
         }
     }

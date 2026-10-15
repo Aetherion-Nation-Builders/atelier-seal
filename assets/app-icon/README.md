@@ -23,8 +23,16 @@ file names keep their upstream `pdfcraft` names so packaging stays untouched.
 | `pdfcraft-1024.png` | 1024 px on Apple's grid; also the runtime Dock icon on macOS |
 | `pdfcraft.icns` | macOS icon (16–1024 px) |
 | `pdfcraft.ico` | Windows icon, 16–256 px |
+| `pdfcraft-document.svg` | Windows PDF file icon master: a Lucide document outline, green badge and outlined PDF lettering; no font dependency |
+| `pdfcraft-document.ico` | Windows PDF file icon (16–256 px), embedded as resource 2 in `pdfcraft.exe` |
 | `hicolor/<size>/apps/ai.storyteller.pdfcraft.png` | Linux icon theme, 16–512 px; 256 px is also the runtime window icon on Windows and Linux |
 | `hicolor/scalable/apps/ai.storyteller.pdfcraft.svg` | Linux scalable icon |
 
 The committed renders were made from the same SVG with cairosvg and Pillow;
 `packaging/icons.sh` regenerates them (needs resvg; iconutil on macOS for the `.icns`).
+
+Upstream also ships a Windows PDF file-type icon, `pdfcraft-document.svg` / `.ico`: a Lucide
+`file-text` outline (ISC) with upstream's green PDF badge and lettering (MIT OR Apache-2.0,
+[LICENSE-document.txt](LICENSE-document.txt)). It is embedded as resource 2 in `pdfcraft.exe` and
+shows on PDF files when the app is the default reader on Windows; it is upstream's artwork, not
+yet redrawn for Atelier.
