@@ -37,7 +37,15 @@ jobs:
       - uses: taiki-e/install-action@v2
         with:
           tool: cargo-deny
+      # As the FreeBSD workflow does: the font tests run against craft-fonts.
+      - uses: actions/checkout@v4
+        with:
+          repository: storytold/craft-fonts
+          ref: 3d9ab3a132ed0eff457e424226a435a901da30d3
+          path: craft-fonts
       - name: Gate
+        env:
+          CRAFT_FONTS_DIR: ${{ github.workspace }}/craft-fonts
         shell: bash
         run: |
           set -o pipefail
