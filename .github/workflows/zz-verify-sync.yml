@@ -33,6 +33,10 @@ jobs:
         with:
           components: rustfmt, clippy
           targets: wasm32-unknown-unknown
+      # Some repos' `xtask ci` requires cargo-deny under CI.
+      - uses: taiki-e/install-action@v2
+        with:
+          tool: cargo-deny
       - name: Gate
         shell: bash
         run: |
@@ -52,7 +56,7 @@ jobs:
           sed 's/\x1b\[[0-9;]*[A-Za-z]//g' gate.log > plain.log
           { grep -E "^test .* FAILED$" plain.log | sed 's/^test //; s/ \.\.\. FAILED$//'
             grep -E "^ +(FAIL|SIGSEGV|SIGABRT|TIMEOUT) \[" plain.log | sed -E 's/^ +[A-Z]+ \[[^]]*\] +//'; } | sort -u | head -15 | while read -r n; do echo "::error title=Failing test::$n"; done
-          grep -E "panicked at|^error(\[E[0-9]+\])?:|^error: |No space left|SIGKILL|signal: " plain.log | sort -u | head -12 | while read -r l; do echo "::error title=Gate output::${l:0:900}"; done
+          grep -E "FAILED at|ci failed|panicked at|^error(\[E[0-9]+\])?:|^error: |No space left|SIGKILL|signal: " plain.log | sort -u | head -12 | while read -r l; do echo "::error title=Gate output::${l:0:900}"; done
           grep -A8 -E "^error(\[E[0-9]+\])?:" plain.log | head -40 | tr '\n' ' ' | cut -c1-1800 | sed 's/^/::error title=First errors::/'
           echo "::error title=Log tail::$(tail -c 1500 plain.log | tr '\n' ' ' | cut -c1-1400)"
           df -h /
