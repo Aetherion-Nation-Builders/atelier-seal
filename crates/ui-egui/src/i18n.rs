@@ -44,12 +44,16 @@ include!(concat!(env!("OUT_DIR"), "/craft_i18n.rs"));
 /// locale is parsed on its first lookup.
 static I18N: LazyLock<I18n> = LazyLock::new(|| {
     let offered: Vec<&str> = LANGUAGES.iter().map(|l| l.code).collect();
-    let (i18n, problems) = I18n::new(CRAFT_I18N, &offered);
+    let (i18n, problems) = I18n::new(CATALOGS.as_slice(), &offered);
     for problem in problems {
         log::warn!("interface catalogs: {problem}");
     }
     i18n
 });
+
+/// The embedded catalogs as this app reads them: with the brand layer applied
+/// (`identity::branded`, see `docs/brand.md`).
+static CATALOGS: LazyLock<Vec<(&'static str, &'static str, &'static str)>> = LazyLock::new(|| crate::identity::branded(CRAFT_I18N));
 
 /// The `language` preference value that follows the system locale.
 pub const AUTO: &str = "auto";
@@ -309,7 +313,7 @@ impl Lang {
         let code = self.code();
         let Some(slot) = LANGUAGES.iter().position(|l| l.code == code).and_then(|i| OWN_ROWS.get(i)) else { return false };
         let rows: &HashSet<(&str, &str)> = slot.get_or_init(|| {
-            let app = CRAFT_I18N.iter().find(|(c, ..)| c.eq_ignore_ascii_case(code)).map_or("", |(_, _, app)| *app);
+            let app = CATALOGS.iter().find(|(c, ..)| c.eq_ignore_ascii_case(code)).map_or("", |(_, _, app)| *app);
             app.lines()
                 .filter(|l| !l.starts_with('#'))
                 .filter_map(|l| {
@@ -326,7 +330,7 @@ impl Lang {
     /// English. For checks that the interface fonts draw every translation.
     pub fn catalog_texts(self) -> impl Iterator<Item = &'static str> {
         let code = self.code();
-        CRAFT_I18N.iter().filter(move |(c, ..)| c.eq_ignore_ascii_case(code)).flat_map(|(_, shared, app)| [*shared, *app])
+        CATALOGS.iter().filter(move |(c, ..)| c.eq_ignore_ascii_case(code)).flat_map(|(_, shared, app)| [*shared, *app])
     }
 }
 

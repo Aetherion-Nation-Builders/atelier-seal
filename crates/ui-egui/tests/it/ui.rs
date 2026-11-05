@@ -238,7 +238,7 @@ fn another_tab_coming_forward_puts_the_expanded_all_tools_away() {
     h.state_mut().set_option("home", "").unwrap();
     h.run_steps(3);
     assert!(!h.state().all_tools_full);
-    h.get_by_label_contains("Welcome to PdfCraft");
+    h.get_by_label_contains("Welcome to Atelier Seal");
     // Another document's tab.
     let mut h = harness(|app| {
         app.open_bytes("one.pdf", None, FIXTURE.to_vec()).expect("fixture opens");
@@ -258,7 +258,7 @@ fn going_home_with_no_document_puts_the_expanded_all_tools_away() {
     h.state_mut().set_option("home", "").unwrap();
     h.run_steps(3);
     assert!(!h.state().all_tools_full);
-    h.get_by_label_contains("Welcome to PdfCraft");
+    h.get_by_label_contains("Welcome to Atelier Seal");
 }
 
 #[test]
@@ -708,7 +708,7 @@ fn the_integrated_title_bar_is_the_traffic_light_band() {
         app.open_bytes("band.pdf", None, FIXTURE.to_vec()).unwrap();
     });
     let band = 28.0;
-    for label in ["Home", "band.pdf", "Open", "Discord", "Keyboard shortcuts"] {
+    for label in ["Home", "band.pdf", "Open", "Nation", "Keyboard shortcuts"] {
         let r = h.get_by_label(label).rect();
         assert!(r.top() >= 0.0 && r.bottom() <= band, "{label}: {r:?} inside the {band} pt title bar");
         assert!(r.height() >= 24.0, "{label}: {r:?} stays clickable");

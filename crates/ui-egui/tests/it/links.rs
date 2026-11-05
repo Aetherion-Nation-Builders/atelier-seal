@@ -45,12 +45,12 @@ fn home_screen_links() {
 #[test]
 fn home_community_card_closes_for_this_run() {
     let mut h = harness(|_| {});
-    h.get_by_label("Join the ArtCraft community");
+    h.get_by_label("Atelier and the Nation");
     h.get_by_label("Close").click();
     h.run_steps(2);
     assert!(h.state().community_card_closed);
-    assert!(h.query_by_label("Join the ArtCraft community").is_none());
-    assert!(h.query_by_label("Join our Discord").is_none());
+    assert!(h.query_by_label("Atelier and the Nation").is_none());
+    assert!(h.query_by_label("Join the Nation").is_none());
     // Not remembered: a fresh app shows the card again.
     assert!(!PdfCraftApp::new().community_card_closed);
 }
