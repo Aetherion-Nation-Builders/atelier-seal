@@ -16,7 +16,7 @@ sha256 = "cd7032ea33b71427f188e34ffb4aee9d6868a57fd196037c5c8b2be03a2a0352"
 [[document]]
 source = "NOTICE"
 destination = "NOTICE"
-sha256 = "9f854f730719af962cd840529324d089e05e68a30bd245c50e33f96e009b4314"
+sha256 = "f8202070fa8161d76fb312f8f191e0d889829ed10254c82f3c2c326c5fb9be1a"
 
 [[document]]
 source = "assets/app-icon/LICENSE-document.txt"
@@ -26,7 +26,7 @@ sha256 = "64a3137e3d5cc41e5b78d2ad8dd9ddddd6588283f9f7b3128aa6a8a50852fb9a"
 [[document]]
 source = "assets/app-icon/LICENSE.txt"
 destination = "assets/app-icon/LICENSE.txt"
-sha256 = "b768acafe6cbad8247eedf86b5b5381feefcd4ee0f8c7808b86811bc687cf37b"
+sha256 = "070476025eeceb8ab2b42ad551bb195eab7b3b3cfa5db921d3c43d09fa2e69de"
 
 [[document]]
 source = "assets/fonts/OFL-DancingScript.txt"
@@ -47,11 +47,6 @@ sha256 = "a76abf002c49097d146e86740a3105a5d00450b1592e820a1109a8c5680cd697"
 source = "assets/icons/LICENSE-lucide.txt"
 destination = "assets/icons/LICENSE-lucide.txt"
 sha256 = "b495047bd93a9b06913511076f504daba17d5bbeb3e0650f3bb53a4220329c57"
-
-[[document]]
-source = "docs/brand/LICENSE-brand.txt"
-destination = "docs/brand/LICENSE-brand.txt"
-sha256 = "0f33f48e7a96cd359d4e4e5b11424b13cebeb59cc70c77928186695e4173585c"
 
 [[document]]
 source = "licenses/CMap-LICENSE.txt"
