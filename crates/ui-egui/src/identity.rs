@@ -61,6 +61,66 @@ pub fn strings(code: &str) -> Vec<(&'static str, &'static str)> {
     if own.is_empty() { of("en") } else { own }
 }
 
+/// The embedded craft-i18n catalogs with the brand layer applied: in every locale, rows naming
+/// the upstream community are dropped ([`retired`]), the rest name this product ([`rewrite`]),
+/// and our own strings ([`strings`]) are added to the app's catalog. The catalogs themselves
+/// stay upstream's (craft-i18n), so this runs once, as they are first read.
+pub fn branded(embedded: &[(&'static str, &'static str, &'static str)]) -> Vec<(&'static str, &'static str, &'static str)> {
+    embedded
+        .iter()
+        .map(|&(code, shared, app)| {
+            let mut app = brand_catalog(app);
+            for (source, translation) in strings(code) {
+                app.push('\t');
+                app.push_str(source);
+                app.push('\t');
+                app.push_str(translation);
+                app.push('\n');
+            }
+            // Built once per locale for the life of the process (the catalogs are `'static`).
+            (code, &*Box::leak(brand_catalog(shared).into_boxed_str()), &*Box::leak(app.into_boxed_str()))
+        })
+        .collect()
+}
+
+/// One catalog file (`context<TAB>source<TAB>translation` rows, `#` comments) with the brand
+/// layer applied: retired rows are dropped, and translations name this product. A row whose
+/// source names the upstream product is kept under that source too: messages from below the UI
+/// crate (engine errors and the like) still name it, while our own code asks for the rewritten
+/// text. The context column is kept as is.
+pub fn brand_catalog(tsv: &str) -> String {
+    let mut out = String::with_capacity(tsv.len().saturating_add(tsv.len() / 8));
+    for line in tsv.lines() {
+        let row = if line.starts_with('#') { None } else { line.split_once('\t') };
+        let Some((context, row)) = row else {
+            out.push_str(line);
+            out.push('\n');
+            continue;
+        };
+        if retired(row) {
+            continue;
+        }
+        let (source, translation) = row.split_once('\t').unwrap_or((row, ""));
+        let translation = rewrite_cow(translation);
+        let mut push = |source: &str| {
+            out.push_str(context);
+            out.push('\t');
+            out.push_str(source);
+            if row.contains('\t') {
+                out.push('\t');
+                out.push_str(&translation);
+            }
+            out.push('\n');
+        };
+        push(source);
+        // `@id` rows are keyed by command ids, which keep upstream's names.
+        if context != "@id" && source.contains(UPSTREAM) {
+            push(&rewrite(source));
+        }
+    }
+    out
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -73,6 +133,22 @@ mod tests {
         assert_eq!(rewrite("open in a PdfCraft window"), "open in an Atelier Seal window");
         assert!(retired("Join the ArtCraft Discord…") && retired("ArtCraft Website") && retired("PdfCraft on getartcraft.com"));
         assert!(!retired("Join the Nation") && !retired("Save As…"));
+    }
+
+    #[test]
+    fn catalogs_are_branded_as_they_load() {
+        let branded =
+            brand_catalog("# PdfCraft\n\tAbout PdfCraft\tÀ propos de PdfCraft\n@id\thelp.discord\tRejoindre le Discord ArtCraft\nno tabs\n");
+        assert_eq!(branded, "# PdfCraft\n\tAbout PdfCraft\tÀ propos de Atelier Seal\n\tAbout Atelier Seal\tÀ propos de Atelier Seal\nno tabs\n");
+        let all = branded_for_test();
+        let (code, shared, app) = all.first().copied().unwrap();
+        assert_eq!((code, shared), ("fr", "\tSave\tEnregistrer\n"));
+        assert!(app.starts_with("\tQuit PdfCraft\tQuitter Atelier Seal\n\tQuit Atelier Seal\tQuitter Atelier Seal\n"), "{app}");
+        assert!(app.contains("\tJoin the Nation\t"), "our own strings are added: {app}");
+    }
+
+    fn branded_for_test() -> Vec<(&'static str, &'static str, &'static str)> {
+        branded(&[("fr", "\tSave\tEnregistrer\n", "\tQuit PdfCraft\tQuitter PdfCraft\n")])
     }
 
     #[test]
