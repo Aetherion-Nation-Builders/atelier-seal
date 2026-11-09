@@ -65,13 +65,13 @@ const APP_ICON_PNG: &[u8] = include_bytes!("../../../assets/app-icon/hicolor/256
 const USAGE: &str = "\
 Usage: pdfcraft [options] [files…]
 
-Opens the files in the PdfCraft desktop app.
+Opens the files in the Atelier Seal desktop app.
 
 Options:
   --two-paged                 open command-line PDFs in noncontinuous two-page view
-  --new-window                open a window of its own instead of passing the files to a running PdfCraft
+  --new-window                open a window of its own instead of passing the files to a running Atelier Seal
   --create-images [images…]   put the images in one PDF and ask for the page DPI
-  --combine files…            add the files to the Combine files tab, of a running PdfCraft if there is one
+  --combine files…            add the files to the Combine files tab, of a running Atelier Seal if there is one
   --control <file>            enable the UI control channel (pdfcraft-cli ui --control <file> …)
   --page N, --zoom 150, --layout continuous, --theme dark, …
                               view settings applied once the files are open

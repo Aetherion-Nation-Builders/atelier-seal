@@ -218,13 +218,16 @@ mod host {
     fn queue_open(name: &str, data: &FileData, inbox: &pdfcraft_ui_egui::Inbox, ctx: &egui::Context) {
         let name = if name == "document" { DEFAULT_NAME } else { name }.to_string();
         let FileData::Bytes(view) = data else {
-            eframe::web_sys::console::warn_1(&format!("PdfCraft: host file {name} came as a File; PdfCraft reads bytes only; not opened").into());
+            eframe::web_sys::console::warn_1(
+                &format!("Atelier Seal: host file {name} came as a File; Atelier Seal reads bytes only; not opened").into(),
+            );
             return;
         };
         // A file from the host is untrusted input: refuse an oversized one before copying it into the app's memory.
         if data.size() > MAX_OPEN_BYTES as f64 {
             eframe::web_sys::console::warn_1(
-                &format!("PdfCraft: host file is {} bytes, over the {} MiB host open limit; not opened", data.size(), MAX_OPEN_BYTES >> 20).into(),
+                &format!("Atelier Seal: host file is {} bytes, over the {} MiB host open limit; not opened", data.size(), MAX_OPEN_BYTES >> 20)
+                    .into(),
             );
             return;
         }
