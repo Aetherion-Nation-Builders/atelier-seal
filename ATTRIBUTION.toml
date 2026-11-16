@@ -3122,7 +3122,7 @@ licence = "MIT OR Apache-2.0"
 licence_file = "LICENSE-MIT"
 kind = "translation"
 usage = "Added to each language's catalog as it loads (crates/ui-egui/src/identity.rs)"
-sha256 = "80d248bcd9ffb1f3b3874d1feabcb4239c0fbadf8fe52a277c5991017ab949d7"
+sha256 = "0be8c75345dfa09ae0d32aa37544e49aa575cba24693d937a5a14aaa90e1bbad"
 
 [[asset]]
 path = "assets/icons/monitor.svg"
