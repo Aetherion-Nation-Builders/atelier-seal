@@ -217,7 +217,7 @@ fn main() -> eframe::Result {
     let logger = logging::install();
     if let Some(value) = pdfcraft_platform::crypto_env::dropped() {
         let name = pdfcraft_platform::crypto_env::IA32CAP;
-        log::warn!("{name} was set to {value}; PdfCraft started again without it (aws-lc stops on a CPU feature the processor lacks)");
+        log::warn!("{name} was set to {value}; Atelier Seal started again without it (aws-lc stops on a CPU feature the processor lacks)");
     }
     // Last-resort guard (AGENTS.md §4): commands, edits, opens and saves catch panics and report
     // them; this hook logs every panic, caught or not, with a backtrace when RUST_BACKTRACE is set.
